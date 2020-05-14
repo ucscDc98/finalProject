@@ -1,0 +1,120 @@
+class Tutorial extends Phaser.Scene {
+    constructor() {
+        super("tutorialScene");
+    }
+
+    preload() {
+
+
+    }
+    create() {
+
+        // background
+        this.add.image(0, 0, 'tutorialBG').setScale(7);
+
+        // pufferfish speed and sprite setup
+        this.pufferFishVelocity = 300;
+        this.ACCELERATION = 200;
+        this.DRAG = 1;
+        this.key1 = this.add.sprite(-1650, -1000, 'key1').setScale(2).setOrigin(0).setScrollFactor(0);
+        this.key2 = this.add.sprite(-1300, -1000, 'key2').setScale(2).setOrigin(0).setScrollFactor(0);
+        this.key3 = this.add.sprite(-950, -1000, 'key3').setScale(2).setOrigin(0).setScrollFactor(0);
+        this.key4 = this.add.sprite(-600, -1000, 'key4').setScale(2).setOrigin(0).setScrollFactor(0);
+        this.pufferFish = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'pufferFish').setScale(0.5);
+
+
+
+        // camera setup and world bounds setup
+        //https://phaser.io/examples/v3/view/camera/follow-offset
+        //set camera and world bounds to double the size of the background image
+        this.cameras.main.setBounds(0, 0, 1920*2, 1080*2);
+        this.physics.world.setBounds(0, 0, 1920*2, 1080*2);
+        //set up pufferfish colliision with world bounds 
+        this.pufferFish.setCollideWorldBounds(true);
+        //set zoom 
+        this.cameras.main.setZoom(0.25);
+        //have camera follow pufferfish and offset it
+        this.cameras.main.startFollow(this.pufferFish, true, 0.1, 0.1);
+        this.cameras.main.followOffset.set(-300, 0);
+        
+        // control configs
+        cursors = this.input.keyboard.createCursorKeys();
+        this.keyboard1 = this.input.keyboard.addKey("ONE");
+        this.keyboard2 = this.input.keyboard.addKey("TWO");
+        this.keyboard3 = this.input.keyboard.addKey("THREE");
+        this.keyboard4 = this.input.keyboard.addKey("FOUR");
+
+        this.anims.create({
+            key: 'two',
+            frames: this.anims.generateFrameNumbers('pufferS', { start: 0, end: 0, first: 0}),
+            frameRate: 0.5
+        });
+        this.anims.create({
+            key: 'one',
+            frames: this.anims.generateFrameNumbers('pufferFish', { start: 0, end: 0, first: 0}),
+            frameRate: 0.5
+        });
+        this.anims.create({
+            key: 'four',
+            frames: this.anims.generateFrameNumbers('pufferFat', { start: 0, end: 0, first: 0}),
+            frameRate: 0.5
+        });
+        this.anims.create({
+            key: 'three',
+            frames: this.anims.generateFrameNumbers('pufferLong', { start: 0, end: 0, first: 0}),
+            frameRate: 0.5
+        });
+
+    } 
+
+    update() {
+        this.keyboard1.on('down', () => {            
+            this.key1.tint = 0xFACADE;
+            this.key2.clearTint();
+            this.key3.clearTint();
+            this.key4.clearTint();
+            this.pufferFish.anims.play('one', true);
+            this.pufferFish.setSize(300,300);
+         });
+        this.keyboard2.on('down', () => {            
+            this.key2.tint = 0xFACADE;
+            this.key3.clearTint();
+            this.key1.clearTint();
+            this.key4.clearTint();
+            this.pufferFish.anims.play('two', true);
+            this.pufferFish.setSize(500,100);
+         });
+         this.keyboard3.on('down', () => {            
+            this.key3.tint = 0xFACADE;
+            this.key1.clearTint();
+            this.key4.clearTint();
+            this.key2.clearTint();
+            this.pufferFish.anims.play('three', true);
+            this.pufferFish.setSize(100, 500);
+         });
+         this.keyboard4.on('down', () => {            
+            this.key4.tint = 0xFACADE;
+            this.key2.clearTint();
+            this.key1.clearTint();
+            this.key3.clearTint();
+            this.pufferFish.anims.play('four', true);
+            this.pufferFish.setSize(700,700);
+         });
+         
+        // controls
+        if(cursors.up.isDown) {
+            this.pufferFish.body.setAccelerationY(-this.ACCELERATION);
+        } else if (cursors.down.isDown) {
+            this.pufferFish.body.setAccelerationY(this.ACCELERATION);
+        } else if (cursors.left.isDown) {
+            this.pufferFish.body.setAccelerationX(-this.ACCELERATION);
+            this.pufferFish.setFlipX(true);
+        } else if (cursors.right.isDown) {
+            this.pufferFish.body.setAccelerationX(this.ACCELERATION);
+            this.pufferFish.resetFlip();
+        } else {
+            this.pufferFish.body.setAcceleration(0);
+            this.pufferFish.body.setDrag(this.DRAG);
+        }
+    }
+}
