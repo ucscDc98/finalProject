@@ -4,8 +4,8 @@ class Menu extends Phaser.Scene {
     }
 
     preload(){
-
-
+        // loads background music
+        this.load.audio('BGMusic',"./assets/BGMusic.mp3");
     }
     create() {
         //add the coral reef background image
@@ -67,10 +67,24 @@ class Menu extends Phaser.Scene {
             repeat: -1 
         });
 
+        // plays BGMusic in loop
+        // feel free to change the config
+        this.music = this.sound.add("BGMusic");
+        let musicConfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+        this.music.play(musicConfig);
+
     }
 
     update(){
-        // play each individual float animation for every frame
+        //play each individual float animation for every frame
         this.bubble.anims.play("float", true);
         this.bubble2.anims.play("float", true);
         this.bubble3.anims.play("float", true);
