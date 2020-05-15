@@ -8,9 +8,18 @@ class Tutorial extends Phaser.Scene {
 
     }
     create() {
+        
+        //some parameters
+        this.gameOver = false;
 
         // background
         this.add.image(0, 0, 'tutorialBG').setScale(4);
+        
+        //temporary timer for water level decrement 
+        this.initialTime = 300;         //5 minutes for test
+        timeText = this.add.text(1200, -300, 'Water Level: ' + this.formatTime(this.initialTime)).setScale(3).setScrollFactor(0);
+        // Each 1000 ms call onEvent
+        timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
 
         // pufferfish speed and sprite setup
         this.pufferFishVelocity = 300;
@@ -124,4 +133,27 @@ class Tutorial extends Phaser.Scene {
             this.pufferFish.body.setVelocityX(0);
         }
     }
+    
+    //For display timer
+    formatTime(seconds){
+        // Minutes
+        var minutes = Math.floor(seconds/60);
+        // Seconds
+        var partInSeconds = seconds%60;
+        // Adds left zeros to seconds
+        partInSeconds = partInSeconds.toString().padStart(2,'0');
+        // Returns formated time
+        return `${minutes}:${partInSeconds}`;
+    }
+    //Time decrement
+    onEvent(){
+        if(this.initialTime>=1){
+            this.initialTime -= 1; // One second
+            timeText.setText('Water Level: ' + this.formatTime(this.initialTime));
+        }else{
+            this.gameOver = true;
+            this.scene.pause();     // Pause the scene
+        }
+    }
+    
 }
