@@ -12,15 +12,12 @@ class Tutorial extends Phaser.Scene {
         //some parameters
         this.gameOver = false;
 
-        //some parameters
-        this.gameOver = false;
-
         // background
         this.add.image(0, 0, 'tutorialBG').setScale(4);
 
         
         //temporary timer for water level decrement 
-        this.initialTime = 300;         //5 minutes for test
+        this.initialTime = 30;         //5 minutes for test
         timeText = this.add.text(1200, -300, 'Water Level: ' + this.formatTime(this.initialTime)).setScale(3).setScrollFactor(0);
         // Each 1000 ms call onEvent
         timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
@@ -33,7 +30,13 @@ class Tutorial extends Phaser.Scene {
         this.pufferFish = this.physics.add.sprite(centerX, centerY + 700, 'pufferFish').setScale(0.6);
         this.pufferFish.body.setOffset(4,4);
 
-        this.stone1 = this.physics.add.sprite(300, 300, 'stone1');
+
+        this.shark = this.physics.add.sprite(500, 900, 'shark');
+        this.sharkVel = 200;
+
+        this.shark.body.setVelocityX(this.sharkVel);
+
+        //this.stone1 = this.physics.add.sprite(300, 300, 'stone1');
         this.stone4 = this.physics.add.sprite(3000, 800, 'stone4').setScale(2);
         this.stone5 = this.physics.add.sprite(3000, 1500, 'stone5').setScale(2);
 
@@ -87,11 +90,17 @@ class Tutorial extends Phaser.Scene {
             frameRate: 0.5
         });
 
+        // colliders
         this.physics.add.collider(this.pufferFish, this.stone5);
         this.physics.add.collider(this.pufferFish, this.stone4);
+        this.physics.add.collider(this.pufferFish, this.shark);
+
+        this.waterLevel = this.add.sprite(0, 0, 'water').setAlpha(0.3).setOrigin(0).setScale(5);
     } 
 
     update() {
+        this.waterLevel.y += 0.25;
+        this.physics.world.setBounds(0, this.waterLevel.y, 1920*5, 1080*2);
         //when key1 is pressed, give it #FACADE tint, clear tint of other UI keys, play animation back to original form and adjust hitbox accordingly
         this.keyboard1.on('down', () => {            
             this.key1.tint = 0xFACADE;
@@ -149,6 +158,14 @@ class Tutorial extends Phaser.Scene {
             this.pufferFish.resetFlip();
         } else {
             this.pufferFish.body.setVelocityX(0);
+        }
+
+        if (this.shark.x >= 700) {
+            this.shark.body.setVelocityX(-this.sharkVel);
+            this.shark.setFlipX(true);
+        } else if (this.shark.x <= 400) {
+            this.shark.body.setVelocityX(this.sharkVel);
+            this.shark.resetFlip();
         }
     }
 

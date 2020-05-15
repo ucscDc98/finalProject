@@ -15,6 +15,10 @@ class Load extends Phaser.Scene {
         this.load.image('stone4', 'Stone_4.png');
         this.load.image('stone5', 'Stone_5.png');
         this.load.image('stone6', 'Stone_6.png');
+        this.load.image('shark', 'Shark.png');
+        this.load.image('water', 'waterLevel.png');
+        this.load.image('sharkS', 'SpookedShark.png');
+        this.load.image('wall', 'wall.png');
         this.load.spritesheet("pufferFish", "Player.png", {
             frameWidth: 417,
             frameHeight: 261,
