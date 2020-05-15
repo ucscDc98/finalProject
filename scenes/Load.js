@@ -8,6 +8,13 @@ class Load extends Phaser.Scene {
         this.load.path = "./assets/";
         //load all necessary assets
         this.load.image("corals", "Coral Reef.png");
+        this.load.image('arrowKeys', 'arrows.png');
+        this.load.image('stone1', 'Stone_1.png');
+        this.load.image('stone2', 'Stone_2.png');
+        this.load.image('stone3', 'Stone_3.png');
+        this.load.image('stone4', 'Stone_4.png');
+        this.load.image('stone5', 'Stone_5.png');
+        this.load.image('stone6', 'Stone_6.png');
         this.load.spritesheet("pufferFish", "Player.png", {
             frameWidth: 417,
             frameHeight: 261,
