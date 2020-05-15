@@ -8,17 +8,21 @@ class Tutorial extends Phaser.Scene {
 
     }
     create() {
+        
+        //some parameters
+        this.gameOver = false;
 
         //some parameters
         this.gameOver = false;
 
         // background
         this.add.image(0, 0, 'tutorialBG').setScale(4);
-           
+
+        
         //temporary timer for water level decrement 
         this.initialTime = 300;         //5 minutes for test
         timeText = this.add.text(1200, -300, 'Water Level: ' + this.formatTime(this.initialTime)).setScale(3).setScrollFactor(0);
-         // Each 1000 ms call onEvent
+        // Each 1000 ms call onEvent
         timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
 
 
@@ -150,6 +154,7 @@ class Tutorial extends Phaser.Scene {
 
       //For display timer
       formatTime(seconds){
+
         // Minutes
         var minutes = Math.floor(seconds/60);
         // Seconds
