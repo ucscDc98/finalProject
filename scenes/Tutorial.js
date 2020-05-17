@@ -8,6 +8,8 @@ class Tutorial extends Phaser.Scene {
 
     }
     create() {
+        this.i = 0;
+        this.j = 0;
         this.levelComplete = false;
         //some parameters
         this.gameOver = false;
@@ -17,7 +19,7 @@ class Tutorial extends Phaser.Scene {
 
         
         //temporary timer for water level decrement 
-        this.initialTime = 60;         //5 minutes for test
+        this.initialTime = 180;         //5 minutes for test
         timeText = this.add.text(1200, -300, 'Water Level: ' + this.formatTime(this.initialTime)).setScale(3).setScrollFactor(0);
         // Each 1000 ms call onEvent
         timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
@@ -201,7 +203,7 @@ class Tutorial extends Phaser.Scene {
 
 
         this.waterLevel.y += 0.25;
-        this.physics.world.setBounds(0, this.waterLevel.y, 1920*5, 1050*2);
+        this.physics.world.setBounds(0, this.waterLevel.y, 1920*5, 2150 - this.waterLevel.y);
         /////////////////////////////////////////////////////////////////////////////////////////
         // keyboard inputs changing size and keypad indicators
         //when key1 is pressed, give it #FACADE tint, clear tint of other UI keys, play animation back to original form and adjust hitbox accordingly
@@ -308,7 +310,10 @@ class Tutorial extends Phaser.Scene {
         if (Math.abs(this.pufferFish.x - this.shark.x) < 1000 && Math.abs(this.pufferFish.y - this.shark.y) < 1000 && this.pufferFishShape == 'fat') {
             this.shark.anims.play('sharkSpook', true);
             this.shark.body.setVelocityY(-300).setSize(this.shark.width/2, this.shark.height/2);
-            this.sharkSound.play(this.sharkConfig);
+            if(this.j == 0) {
+                this.sharkSound.play(this.sharkConfig);
+            }
+            this.j++;
         }
 
         // player reaching the goal check
@@ -319,7 +324,16 @@ class Tutorial extends Phaser.Scene {
 
         // if the cage goes up to the surface the level is completed and the player will later proceed to the next level
         if (this.goal.y <= 0) {
-            this.levelComplete = true;
+            if (this.i == 0){
+                this.add.image(this.pufferFish.x + 1400, this.pufferFish.y - 700, 'textBubble');
+            }
+            this.i++;
+            this.game.sound.stopAll();
+            this.clock= this.time.delayedCall(4000, () => {
+                this.levelComplete = true;
+    
+            }, null, this);
+   
         }
         if (this.levelComplete == true) {
             this.scene.start('menuScene');
@@ -357,7 +371,9 @@ class Tutorial extends Phaser.Scene {
             this.initialTime -= 1; // One second
             timeText.setText('Water Level: ' + this.formatTime(this.initialTime));
         }else{
-            this.gameOver = true;    // Pause the scene
+            if (this.levelComplete == false) {
+                this.gameOver = true;    // Pause the scene
+           }
         }
     }
 

@@ -9,6 +9,7 @@ class Load extends Phaser.Scene {
         //load all necessary assets
         this.load.image("corals", "Coral Reef.png");
         this.load.image('arrowKeys', 'arrows.png');
+        this.load.image('textBubble', 'Textbubble.png');
         this.load.image('stone1', 'Stone_1.png');
         this.load.image('stone2', 'Stone_2.png');
         this.load.image('stone3', 'Stone_3.png');
@@ -16,6 +17,7 @@ class Load extends Phaser.Scene {
         this.load.image('stone5', 'Stone_5.png');
         this.load.image('stone6', 'Stone_6.png');
         this.load.image('shark', 'Shark.png');
+        this.load.image('tutorialTrans', 'tutorialTransition.png');
         this.load.image('water', 'waterLevel.png');
         this.load.image('wall', 'wall.png');
         this.load.image('anchor', 'Anchor-02.png');
@@ -24,6 +26,7 @@ class Load extends Phaser.Scene {
         this.load.audio('poof', 'poof.wav');
         this.load.audio('tink', 'tink.wav');
         this.load.audio('sharkScream', 'sharkScream.ogg');
+        this.load.audio('levelStart', 'levelStart.wav');
         this.load.spritesheet("sharkS", "SpookedShark.png", {
             frameWidth: 500,
             frameHeight: 500,

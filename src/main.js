@@ -32,7 +32,7 @@ let config = {
         }
     },
 
-    scene: [ Load, Menu, Tutorial, LevelSelect, Level1, Level2, credits ]
+    scene: [ Load, Menu, tutorialLoad, Tutorial, LevelSelect, Level1, Level2, credits ]
 };
 
 //apply configurations to new Phaser Game
