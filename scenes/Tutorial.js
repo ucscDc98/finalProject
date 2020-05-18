@@ -10,6 +10,7 @@ class Tutorial extends Phaser.Scene {
     create() {
         this.i = 0;
         this.j = 0;
+        this.k = 0;
         this.levelComplete = false;
         //some parameters
         this.gameOver = false;
@@ -320,7 +321,9 @@ class Tutorial extends Phaser.Scene {
         if(this.physics.overlap(this.pufferFish, this.goal)) {
             this.goal.body.setVelocityY(-300);
             this.chain.body.setVelocityY(-300);
-            this.text= this.add.image(this.goal.x - 250, this.goal.y, 'textBubble').setScale(2);
+            if (this.k == 0) {
+                   this.text= this.add.image(this.goal.x - 250, this.goal.y, 'textBubble').setScale(2);
+            }
         }
 
         // if the cage goes up to the surface the level is completed and the player will later proceed to the next level
