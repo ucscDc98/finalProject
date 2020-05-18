@@ -19,7 +19,7 @@ class Tutorial extends Phaser.Scene {
 
         
         //temporary timer for water level decrement 
-        this.initialTime = 180;         //5 minutes for test
+        this.initialTime = 180;         //3 minutes 
         timeText = this.add.text(1200, -300, 'Water Level: ' + this.formatTime(this.initialTime)).setScale(3).setScrollFactor(0);
         // Each 1000 ms call onEvent
         timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
@@ -320,16 +320,14 @@ class Tutorial extends Phaser.Scene {
         if(this.physics.overlap(this.pufferFish, this.goal)) {
             this.goal.body.setVelocityY(-300);
             this.chain.body.setVelocityY(-300);
+            this.text= this.add.image(this.goal.x - 250, this.goal.y, 'textBubble').setScale(2);
         }
 
         // if the cage goes up to the surface the level is completed and the player will later proceed to the next level
         if (this.goal.y <= 0) {
-            if (this.i == 0){
-                this.add.image(this.pufferFish.x + 1400, this.pufferFish.y - 700, 'textBubble');
-            }
-            this.i++;
             this.game.sound.stopAll();
-            this.clock= this.time.delayedCall(4000, () => {
+            timedEvent.paused= true;
+            this.clock= this.time.delayedCall(7000, () => {
                 this.levelComplete = true;
     
             }, null, this);
