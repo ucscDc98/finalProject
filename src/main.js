@@ -1,10 +1,9 @@
-//class Main extends Phaser 
-// Nathan Altice
-// Updated: 4/18/20
-// Phaser 3 Movement Studies in X Scenes
-// Concepts: Arcade physics, atlas and atlasXML loading, atlas animation (custom and generated frames), physics world wrapping, physics body properties (velocity, acceleration, drag, max acceleration), keyboard (isDown, JustPressed, DownDuration, UpDuration)
-// Jump mechanics inspired by and adapted from Game Mechanic Explorer https://gamemechanicexplorer.com
-// The two example atlases  are commercial assets and should not be used for your own projects - buy them from https://www.kenney.nl/assets :)
+/*
+CMPM120 Spring 2020
+Copyright RDSJ L.L.C.
+Pufferfish Misadventures
+Group Members: Simon Lemay, Dennis Moiseyev, Rene Ding, Huazhen Xu, and Jake Nguyen
+*/
 
 // tame the javashrek
 "use strict";
