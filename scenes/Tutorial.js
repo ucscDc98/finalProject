@@ -166,9 +166,18 @@ class Tutorial extends Phaser.Scene {
             loop: false,
             delay: 0
         }
+        // for pause menu
+        keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.add.text(-600, -500, 'Press (SPACE) to pause').setScale(3).setScrollFactor(0);
     } 
 
     update() {
+        ///////////////////////////////////////////////////////////////
+        // paused menu
+        if(Phaser.Input.Keyboard.JustDown(keySpace)){
+            this.scene.pause();
+            this.scene.launch('pauseScene');
+        }
         ///////////////////////////////////////////////////////////////
         // anchor physics
         if (this.anchor1.y > 1300) {
