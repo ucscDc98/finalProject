@@ -22,9 +22,11 @@ class PauseMenu extends Phaser.Scene {
         
         resumeButton.on('pointerover',function(pointer){
             resumeButton.setAlpha(0.7);
+            self.sound.play("blip");
         })
         restartButton.on('pointerover',function(pointer){
             restartButton.setAlpha(0.7);
+            self.sound.play("blip");
         })
 
         resumeButton.on('pointerout',function(pointer){
