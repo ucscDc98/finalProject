@@ -47,6 +47,7 @@ class Menu extends Phaser.Scene {
         })
         //created event where mouse clicked on level select button transitions to the next scene
         selectbutton.on('pointerdown',function(pointer){
+            self.music.stop();
             self.scene.start("levelSelectScene");
         })
         //add separate bubble sprites into the menu scene so that they lie on top of one another
