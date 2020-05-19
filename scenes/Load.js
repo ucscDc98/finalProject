@@ -10,6 +10,10 @@ class Load extends Phaser.Scene {
         this.load.image("corals", "Coral Reef.png");
         this.load.image('arrowKeys', 'arrows.png');
         this.load.image('textBubble', 'Textbubble.png');
+        this.load.image("lv1button", "LV.1button.png");
+        this.load.image("lv2button", "LV.2button.png");
+        this.load.image("lv3button", "LV.3button.png");
+        this.load.image("tutbutton", "Tutbutton.png");
         this.load.image('stone1', 'Stone_1.png');
         this.load.image('stone2', 'Stone_2.png');
         this.load.image('stone3', 'Stone_3.png');
