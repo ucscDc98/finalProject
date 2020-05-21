@@ -16,12 +16,11 @@ class Tutorial extends Phaser.Scene {
         this.gameOver = false;
         this.pufferFishShape = 'normal';
         // background
-        this.add.image(0, 0, 'tutorialBG').setScale(9);
+        this.add.image(0, 0, 'tutorialBG').setScale(12);
 
-        
         //temporary timer for water level decrement 
-        this.initialTime = 180;         //3 minutes 
-        timeText = this.add.text(1200, -300, 'Water Level: ' + this.formatTime(this.initialTime)).setScale(3).setScrollFactor(0);
+        this.initialTime = 143;         //2 min. 23 sec.
+        //timeText = this.add.text(1200, -300, 'Water Level: ' + this.formatTime(this.initialTime)).setScale(3).setScrollFactor(0);
         // Each 1000 ms call onEvent
         timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
 
@@ -132,7 +131,7 @@ class Tutorial extends Phaser.Scene {
         this.physics.add.collider(this.pufferFish, this.stone3b);
         this.physics.add.collider(this.pufferFish, this.stone3c);
 
-        this.waterLevel = this.add.sprite(0, 0, 'water').setAlpha(0.3).setOrigin(0).setScale(8);
+        this.waterLevel = this.physics.add.sprite(0, 0, 'water').setAlpha(0.3).setOrigin(0).setScale(12);
 
         this.poofSound = this.sound.add("poof");
         this.poofConfig = {
@@ -256,7 +255,7 @@ class Tutorial extends Phaser.Scene {
          });
           //when key4 is pressed, give it #FACADE tint, clear tint of other UI keys, play animation for the fattest pufferfish form and adjust hitbox accordingly
          this.keyboard4.on('down', () => {   
-             this.pufferFishShape = 'fat';         
+            this.pufferFishShape = 'fat';         
             this.key4.tint = 0xFACADE;
             this.key2.clearTint();
             this.key1.clearTint();
@@ -380,7 +379,7 @@ class Tutorial extends Phaser.Scene {
     onEvent(){
         if(this.initialTime>=1){
             this.initialTime -= 1; // One second
-            timeText.setText('Water Level: ' + this.formatTime(this.initialTime));
+            //timeText.setText('Water Level: ' + this.formatTime(this.initialTime));
         }else{
             if (this.levelComplete == false) {
                 this.gameOver = true;    // Pause the scene
