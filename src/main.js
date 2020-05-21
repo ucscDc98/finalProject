@@ -1,10 +1,9 @@
-//class Main extends Phaser 
-// Nathan Altice
-// Updated: 4/18/20
-// Phaser 3 Movement Studies in X Scenes
-// Concepts: Arcade physics, atlas and atlasXML loading, atlas animation (custom and generated frames), physics world wrapping, physics body properties (velocity, acceleration, drag, max acceleration), keyboard (isDown, JustPressed, DownDuration, UpDuration)
-// Jump mechanics inspired by and adapted from Game Mechanic Explorer https://gamemechanicexplorer.com
-// The two example atlases  are commercial assets and should not be used for your own projects - buy them from https://www.kenney.nl/assets :)
+/*
+CMPM120 Spring 2020
+Copyright RDSJ L.L.C.
+Pufferfish Misadventures
+Group Members: Simon Lemay, Dennis Moiseyev, Rene Ding, Huazhen Xu, and Jake Nguyen
+*/
 
 // tame the javashrek
 "use strict";
@@ -32,7 +31,11 @@ let config = {
         }
     },
 
-    scene: [ Load, Menu, Tutorial, LevelSelect, Level1, Level2, credits ]
+<<<<<<< HEAD
+    scene: [ Load, Menu, tutorialLoad, Tutorial, LevelSelect, level1Load, Level1, Level2, credits, PauseMenu ]
+=======
+    scene: [ Load, Menu, tutorialLoad, Tutorial, LevelSelect, Level1, Level2, credits, PauseMenu ]
+>>>>>>> da48ee6cd431724e51770b16cb3731cf671f61ec
 };
 
 //apply configurations to new Phaser Game
@@ -43,7 +46,7 @@ let centerX= game.config.width/2;
 let centerY= game.config.height/2;
 var timeText;
 var timedEvent;
-
+let keySpace;
 // let highScore;
 // let newHighScore = false;
 // let boneScore;
