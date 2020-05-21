@@ -10,6 +10,7 @@ class Tutorial extends Phaser.Scene {
     create() {
         this.i = 0;
         this.j = 0;
+        this.k = 0;
         this.levelComplete = false;
         //some parameters
         this.gameOver = false;
@@ -19,14 +20,14 @@ class Tutorial extends Phaser.Scene {
 
         
         //temporary timer for water level decrement 
-        this.initialTime = 180;         //5 minutes for test
+        this.initialTime = 180;         //3 minutes 
         timeText = this.add.text(1200, -300, 'Water Level: ' + this.formatTime(this.initialTime)).setScale(3).setScrollFactor(0);
         // Each 1000 ms call onEvent
         timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
 
 
         // pufferfish speed and sprite setup
-        this.pufferFishVelocity = 500;
+        this.pufferFishVelocity = 400;
         this.arrowKeys = this.add.sprite(game.config.width/2 + 700, game.config.height/2 + 700, 'arrowKeys').setScale(0.75); 
 
         this.pufferFish = this.physics.add.sprite(centerX, centerY + 700, 'pufferFish').setScale(0.6);
@@ -165,9 +166,18 @@ class Tutorial extends Phaser.Scene {
             loop: false,
             delay: 0
         }
+        // for pause menu
+        keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.add.text(-600, -500, 'Press (SPACE) to pause').setScale(3).setScrollFactor(0);
     } 
 
     update() {
+        ///////////////////////////////////////////////////////////////
+        // paused menu
+        if(Phaser.Input.Keyboard.JustDown(keySpace)){
+            this.scene.pause();
+            this.scene.launch('pauseScene');
+        }
         ///////////////////////////////////////////////////////////////
         // anchor physics
         if (this.anchor1.y > 1300) {
@@ -216,7 +226,7 @@ class Tutorial extends Phaser.Scene {
             this.key4.clearTint();
             
             this.pufferFish.anims.play('one', true);
-            this.pufferFishVelocity = 300;
+            this.pufferFishVelocity = 400;
             this.pufferFish.setSize(this.pufferFish.width,this.pufferFish.height);
             this.poofSound.play(this.poofConfig);  
          });
@@ -320,23 +330,24 @@ class Tutorial extends Phaser.Scene {
         if(this.physics.overlap(this.pufferFish, this.goal)) {
             this.goal.body.setVelocityY(-300);
             this.chain.body.setVelocityY(-300);
+            if (this.k == 0) {
+                   this.text= this.add.image(this.goal.x - 250, this.goal.y, 'textBubble').setScale(2);
+            }
+            this.k++;
         }
 
         // if the cage goes up to the surface the level is completed and the player will later proceed to the next level
         if (this.goal.y <= 0) {
-            if (this.i == 0){
-                this.add.image(this.pufferFish.x + 1400, this.pufferFish.y - 700, 'textBubble');
-            }
-            this.i++;
             this.game.sound.stopAll();
-            this.clock= this.time.delayedCall(4000, () => {
+            timedEvent.paused= true;
+            this.clock= this.time.delayedCall(7000, () => {
                 this.levelComplete = true;
     
             }, null, this);
    
         }
         if (this.levelComplete == true) {
-            this.scene.start('menuScene');
+            this.scene.start('level1load');
         }
 
         if (this.gameOver == true) {
