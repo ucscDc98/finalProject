@@ -333,6 +333,7 @@ class Tutorial extends Phaser.Scene {
             if (this.k == 0) {
                    this.text= this.add.image(this.goal.x - 250, this.goal.y, 'textBubble').setScale(2);
             }
+            this.k++;
         }
 
         // if the cage goes up to the surface the level is completed and the player will later proceed to the next level
