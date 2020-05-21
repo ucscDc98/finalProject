@@ -41,8 +41,6 @@ class Load extends Phaser.Scene {
         this.load.spritesheet("pufferFish", "Player.png", {
             frameWidth: 417,
             frameHeight: 261,
-            startFrame: 0,
-            endFrame: 0
         });
         this.load.spritesheet("pufferFat", "fatpuff.png", {
             frameWidth: 640,
