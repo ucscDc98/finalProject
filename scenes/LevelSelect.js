@@ -83,12 +83,20 @@ class LevelSelect extends Phaser.Scene {
             self.scene.start("tutorialTransition");
         })
         
+<<<<<<< HEAD
         
         //created event where mouse clicked on level 1 button transitions to the next scene
         LV1button.on('pointerdown',function(pointer){
             self.scene.start("level1Transition");
         })
         /*
+=======
+        /*
+        //created event where mouse clicked on level 1 button transitions to the next scene
+        LV1button.on('pointerdown',function(pointer){
+            self.scene.start("level1Scene");
+        })
+>>>>>>> da48ee6cd431724e51770b16cb3731cf671f61ec
          //created event where mouse clicked on level 2 button transitions to the next scene
         LV2button.on('pointerdown',function(pointer){
             self.scene.start("level2Scene");

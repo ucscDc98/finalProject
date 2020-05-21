@@ -31,7 +31,11 @@ let config = {
         }
     },
 
+<<<<<<< HEAD
     scene: [ Load, Menu, tutorialLoad, Tutorial, LevelSelect, level1Load, Level1, Level2, credits, PauseMenu ]
+=======
+    scene: [ Load, Menu, tutorialLoad, Tutorial, LevelSelect, Level1, Level2, credits, PauseMenu ]
+>>>>>>> da48ee6cd431724e51770b16cb3731cf671f61ec
 };
 
 //apply configurations to new Phaser Game
