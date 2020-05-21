@@ -96,12 +96,22 @@ class Tutorial extends Phaser.Scene {
         this.keyboard4 = this.input.keyboard.addKey("FOUR");
 
         this.restartKey = this.input.keyboard.addKey('R');
+        
+        // Starting animation for the player
+        this.anims.create({
+            key: "pufferFish_anim",
+            frames: this.anims.generateFrameNumbers("pufferFish"),
+            framerate: 0.5, // BUG?: Can't changed the framerate. He's a speedy boi
+            repeat: -1
+        });
+        this.pufferFish.play("pufferFish_anim");
 
-        //create animations for the different states thew pufferfish can change into
+        //create animations for the different states the pufferfish can change into        
         this.anims.create({
             key: 'one',
-            frames: this.anims.generateFrameNumbers('pufferFish', { start: 0, end: 0, first: 0}),
-            frameRate: 0.5
+            frames: this.anims.generateFrameNumbers('pufferFish'),
+            frameRate: 10, // BUG: Game crashes if exceeds this framerate. Theory?: Overlaps in animations maybe.
+            repeat: -1
         });
         this.anims.create({
             key: 'two',
