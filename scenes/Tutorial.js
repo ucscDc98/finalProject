@@ -41,16 +41,19 @@ class Tutorial extends Phaser.Scene {
         this.shark.body.setVelocityX(this.sharkVel).setSize(this.shark.width, this.shark.height/2);
         this.shark.setImmovable();
 
+        this.add.image(2100, 1325, 'arrow');
         //this.stone1 = this.physics.add.sprite(300, 300, 'stone1');
-        this.stone3 = this.physics.add.sprite(3200, 2150, 'stone3').setSize(100,200).setScale(4);
+        //bottom front
+        this.stone3 = this.physics.add.sprite(2675, 2150, 'rock').setSize(125,300).setScale(4);
         this.stone3.rotation = Math.PI/2*3;
-        this.stone3a = this.physics.add.sprite(3000, 100, 'stone3').setSize(100,200).setScale(4);
+        // top front
+        this.stone3a = this.physics.add.sprite(2500, 650, 'rock').setSize(100,310).setScale(4);
         this.stone3a.rotation = Math.PI/2*3;
-        this.stone3c = this.physics.add.sprite(3700, 1400, 'stone3').setSize(100, 200).setScale(4);
+        this.stone3c = this.physics.add.sprite(3300, 1200, 'rock').setSize(120, 300).setScale(4);
         this.stone3c.rotation = Math.PI/2;
-        this.stone3b = this.physics.add.sprite(3400, 900, 'stone3').setScale(4);
-        this.stone4 = this.physics.add.sprite(3000, 800, 'stone4').setScale(2);
-        this.stone5 = this.physics.add.sprite(3000, 1500, 'stone5').setScale(2);
+        this.stone3b = this.physics.add.sprite(3400, 800, 'rock').setScale(4);
+        //this.stone4 = this.physics.add.sprite(3000, 800, 'rock').setScale(2);
+        this.stone5 = this.physics.add.sprite(2600, 1500, 'rock').setScale(2);
 
         // anchors
         this.anchor1 = this.physics.add.sprite(4000, 500, 'anchor').setScale(4);
@@ -63,7 +66,7 @@ class Tutorial extends Phaser.Scene {
         this.anchor4.body.setVelocityY(300);
 
         this.stone5.body.immovable = true;
-        this.stone4.body.immovable = true;
+        //this.stone4.body.immovable = true;
         this.stone3.body.immovable = true;
         this.stone3a.body.immovable = true;
         this.stone3b.body.immovable = true;
@@ -138,9 +141,9 @@ class Tutorial extends Phaser.Scene {
 
         // colliders
         this.physics.add.collider(this.pufferFish, this.stone5);
-        this.physics.add.collider(this.pufferFish, this.stone4);
+        //this.physics.add.collider(this.pufferFish, this.stone4);
         this.physics.add.collider(this.pufferFish, this.stone3);
-        this.physics.add.collider(this.pufferFish, this.stone3a);
+       this.physics.add.collider(this.pufferFish, this.stone3a);
         this.physics.add.collider(this.pufferFish, this.stone3b);
         this.physics.add.collider(this.pufferFish, this.stone3c);
 
