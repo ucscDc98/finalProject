@@ -114,18 +114,21 @@ class Tutorial extends Phaser.Scene {
         });
         this.anims.create({
             key: 'two',
-            frames: this.anims.generateFrameNumbers('pufferS', { start: 0, end: 0, first: 0}),
-            frameRate: 0.5
+            frames: this.anims.generateFrameNumbers('pufferLong'),
+            frameRate: 10,
+            repeat: -1
         });
         this.anims.create({
             key: 'three',
-            frames: this.anims.generateFrameNumbers('pufferLong', { start: 0, end: 0, first: 0}),
-            frameRate: 0.5
+            frames: this.anims.generateFrameNumbers('pufferTall'),
+            frameRate: 10,
+            repeat: -1
         });
         this.anims.create({
             key: 'four',
-            frames: this.anims.generateFrameNumbers('pufferFat', { start: 0, end: 0, first: 0}),
-            frameRate: 0.5
+            frames: this.anims.generateFrameNumbers('pufferFat'),
+            frameRate: 10,
+            repeat: -1
         });
         this.anims.create({
             key: 'sharkSpook',
