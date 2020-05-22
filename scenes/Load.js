@@ -39,21 +39,21 @@ class Load extends Phaser.Scene {
             startFrame: 0,
             endFrame: 0
         });
-        this.load.spritesheet("pufferFish", "Player.png", {
+        this.load.spritesheet("pufferFish", "pufferFishSprite.png", {
             frameWidth: 417,
             frameHeight: 261,
         });
-        this.load.spritesheet("pufferFat", "fatpuff.png", {
-            frameWidth: 640,
-            frameHeight: 640,
-            startFrame: 0,
-            endFrame: 0
+        this.load.spritesheet('pufferLong', 'pufferLongSprite.png',{
+            frameWidth: 420,
+            frameHeight: 126,
         });
-        this.load.spritesheet("pufferLong", "puffLong.png", {
+        this.load.spritesheet("pufferTall", "pufferTallSprite.png", {
             frameWidth: 169,
             frameHeight: 416,
-            startFrame: 0,
-            endFrame: 0
+        });
+        this.load.spritesheet("pufferFat", "pufferFatSprite.png", {
+            frameWidth: 640,
+            frameHeight: 640,
         });
         this.load.video("oceanfloor", "Ocean Floor.mp4");
         this.load.image("play", "Play Button.png");
@@ -63,12 +63,6 @@ class Load extends Phaser.Scene {
         this.load.image('key3', 'key2UI.png');
         this.load.image('key4', 'key3UI.png');
         this.load.image('key1', 'key0UI.png');
-        this.load.spritesheet('pufferS', 'pufferS.png',{
-            frameWidth: 420,
-            frameHeight: 126,
-            startFrame: 0,
-            endFrame: 0
-        });
         this.load.atlas("bubbles", "bubblesheet.png", "bubbles.json");
         this.load.audio("blip", "reverse_blip.mp3");
 
