@@ -37,7 +37,7 @@ class Tutorial extends Phaser.Scene {
         this.chain = this.physics.add.sprite(6500, 900, 'chain');
         this.shark = this.physics.add.sprite(6000, 1300, 'shark');
         this.sharkVel = 200;
-
+        this.add.image(5500, 1700, 'scareShark').setScale(4);
         this.shark.body.setVelocityX(this.sharkVel).setSize(this.shark.width, this.shark.height/2);
         this.shark.setImmovable();
 
@@ -90,6 +90,9 @@ class Tutorial extends Phaser.Scene {
         this.cameras.main.startFollow(this.pufferFish, true, 0.1, 0.1);
         this.cameras.main.followOffset.set(-300, 0);
         
+        this.kelp1 = this.add.sprite(2100, 1200, 'kelp');
+
+
         // control configs
         cursors = this.input.keyboard.createCursorKeys();
         this.keyboard1 = this.input.keyboard.addKey("ONE");
@@ -139,6 +142,11 @@ class Tutorial extends Phaser.Scene {
             frameRate: 0.5
         });
 
+        this.anims.create({
+            key: 'kelpdance',
+            frames: this.anims.generateFrameNumbers('kelp', { start: 0, end: 2, first:0}),
+            frameRate: 5
+        })
         // colliders
         this.physics.add.collider(this.pufferFish, this.stone5);
         //this.physics.add.collider(this.pufferFish, this.stone4);
@@ -187,6 +195,10 @@ class Tutorial extends Phaser.Scene {
     } 
 
     update() {
+
+        this.kelp1.anims.play('kelpdance', true);
+
+
         ///////////////////////////////////////////////////////////////
         // paused menu
         if(Phaser.Input.Keyboard.JustDown(keySpace)){
@@ -362,7 +374,7 @@ class Tutorial extends Phaser.Scene {
    
         }
         if (this.levelComplete == true) {
-            this.scene.start('level1load');
+            this.scene.start('level1Transition');
         }
 
         if (this.gameOver == true) {

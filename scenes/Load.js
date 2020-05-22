@@ -33,6 +33,12 @@ class Load extends Phaser.Scene {
         this.load.audio('tink', 'tink.wav');
         this.load.audio('sharkScream', 'sharkScream.ogg');
         this.load.audio('levelStart', 'levelStart.wav');
+        this.load.spritesheet("kelp", "kelp.png", {
+            frameWidth: 160,
+            frameHeight: 160,
+            startFrame: 0,
+            endFrame: 2
+        });
         this.load.spritesheet("sharkS", "SpookedShark.png", {
             frameWidth: 500,
             frameHeight: 500,
@@ -67,6 +73,7 @@ class Load extends Phaser.Scene {
         this.load.audio("blip", "reverse_blip.mp3");
         this.load.image('rock', 'rock.png');
         this.load.image('arrow', 'arrow.png');
+        this.load.image('scareShark', 'scaretheshark.png');
 
     }
     create() {
