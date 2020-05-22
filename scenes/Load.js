@@ -8,6 +8,7 @@ class Load extends Phaser.Scene {
         this.load.path = "./assets/";
         //load all necessary assets
         this.load.image("corals", "Coral Reef.png");
+        this.load.image("LSbackground", "Background (1).png");
         this.load.image('arrowKeys', 'arrows.png');
         this.load.image('textBubble', 'Textbubble.png');
         this.load.image("lv1button", "LV.1button.png");
