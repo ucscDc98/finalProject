@@ -37,12 +37,12 @@ class PauseMenu extends Phaser.Scene {
         })
 
         resumeButton.on('pointerdown',function(pointer){
-            self.scene.resume('tutorialScene');
+            self.scene.resume(pauseScene);
             self.scene.stop();
         })
         restartButton.on('pointerdown',function(pointer){
             self.scene.stop();
-            self.scene.start('tutorialScene');
+            self.scene.start(pauseScene);
         })
     } 
 

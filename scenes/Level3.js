@@ -1,6 +1,6 @@
-class Level1 extends Phaser.Scene {
+class Level3 extends Phaser.Scene {
     constructor() {
-        super("level1Scene");
+        super("level3Scene");
     }
 
     preload() {
@@ -130,7 +130,7 @@ class Level1 extends Phaser.Scene {
         ///////////////////////////////////////////////////////////////
         // paused menu
         if(Phaser.Input.Keyboard.JustDown(keySpace)){
-            pauseScene = "level1Scene";
+            pauseScene = "level3Scene";
             this.scene.pause();
             this.scene.launch('pauseScene');
         }
@@ -206,7 +206,7 @@ class Level1 extends Phaser.Scene {
 
 
         if (this.levelComplete == true) {
-            this.scene.start('level2Transition');
+            this.scene.start('creditsScene');
         }
     }
 }

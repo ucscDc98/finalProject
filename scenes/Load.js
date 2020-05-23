@@ -33,6 +33,9 @@ class Load extends Phaser.Scene {
         this.load.audio('tink', 'tink.wav');
         this.load.audio('sharkScream', 'sharkScream.ogg');
         this.load.audio('levelStart', 'levelStart.wav');
+        this.load.image('level1BG', 'level1bg.png');
+        this.load.image('level2load', 'level2.png');
+        this.load.image('level3load', 'level3.png');
         this.load.spritesheet("kelp", "kelp.png", {
             frameWidth: 160,
             frameHeight: 160,

@@ -218,6 +218,7 @@ class Tutorial extends Phaser.Scene {
         ///////////////////////////////////////////////////////////////
         // paused menu
         if(Phaser.Input.Keyboard.JustDown(keySpace)){
+            pauseScene = "tutorialScene";
             this.scene.pause();
             this.scene.launch('pauseScene');
         }

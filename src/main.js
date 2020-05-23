@@ -32,7 +32,7 @@ let config = {
     },
 
 
-    scene: [ Load, Menu, tutorialLoad, Tutorial, LevelSelect, level1Load, Level1, Level2, credits, PauseMenu ]
+    scene: [ Load, Menu, tutorialLoad, Tutorial, LevelSelect, level1Load, level2Load, level3Load, Level1, Level2, Level3, credits, PauseMenu ]
 
 };
 
@@ -45,6 +45,8 @@ let centerY= game.config.height/2;
 var timeText;
 var timedEvent;
 let keySpace;
+
+let pauseScene;
 // let highScore;
 // let newHighScore = false;
 // let boneScore;
