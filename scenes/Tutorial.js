@@ -29,7 +29,11 @@ class Tutorial extends Phaser.Scene {
         this.pufferFishVelocity = 400;
         this.arrowKeys = this.add.sprite(game.config.width/2 + 700, game.config.height/2 + 700, 'arrowKeys').setScale(0.75); 
         this.add.image(2100, 1325, 'arrow');//add arrow showing where the player is to move
-        
+        this.water = this.physics.add.sprite(4275, 1750, 'waterPickup').setScale(0.5);
+        this.water1 = this.physics.add.sprite(4615, 1500, 'waterPickup').setScale(0.5);
+        this.water0 = this.physics.add.sprite(centerX + 1500, centerY, 'waterPickup').setScale(0.5);
+        this.water2 = this.physics.add.sprite(4955, 1250, 'waterPickup').setScale(0.5);
+
         this.pufferFish = this.physics.add.sprite(centerX, centerY + 700, 'pufferFish').setScale(0.6);
         this.pufferFish.body.setOffset(4,4);
         //this.pufferFish.setImmovable();
@@ -255,7 +259,7 @@ class Tutorial extends Phaser.Scene {
             this.anchor4.body.setVelocityY(300);
         }
 
-        this.waterLevel.y += 0.25;
+        this.waterLevel.y += 0.5;
         this.physics.world.setBounds(0, this.waterLevel.y, 1920*5, 2150 - this.waterLevel.y);
         /////////////////////////////////////////////////////////////////////////////////////////
         // keyboard inputs changing size and keypad indicators
@@ -340,6 +344,23 @@ class Tutorial extends Phaser.Scene {
 
         //////////////////////////////////////////////////////////////////////////////////
         // collision detection
+        if (this.physics.overlap(this.pufferFish, this.water)) {
+            this.water.destroy();
+            this.waterLevel.y -= 50;
+        }
+        if (this.physics.overlap(this.pufferFish, this.water1)) {
+            this.water1.destroy();
+            this.waterLevel.y -= 50;
+        }
+        if (this.physics.overlap(this.pufferFish, this.water0)) {
+            this.water0.destroy();
+            this.waterLevel.y -= 50;
+        }
+        if (this.physics.overlap(this.pufferFish, this.water2)) {
+            this.water2.destroy();
+            this.waterLevel.y -= 50;
+        }
+
         if (this.physics.overlap(this.pufferFish, this.shark)){
             this.gameOver = true;
         }
@@ -393,42 +414,16 @@ class Tutorial extends Phaser.Scene {
             this.scene.start('level1Transition');
         }
 
+        if (this.waterLevel.y == 2150) {
+            this.gameOver = true;
+        }
         if (this.gameOver == true) {
-            /* this.add.text(this.pufferFish.x + 100, this.pufferFish.y - 400, 'Game Over');
-            this.add.text(this.pufferFish.x + 100, this.pufferFish.y - 200, 'Press R to Restart');
-            this.scene.pause()
-            if (this.scene.isPaused()) {
-                this.restartKey.on('down', () => {
-                this.scene.start('tutorialScene');
-                })
-            }
-            */
-           this.scene.restart();
+
+           this.scene.start('tutorialScene');
         }
     }
 
-      //For display timer
-      formatTime(seconds){
 
-        // Minutes
-        var minutes = Math.floor(seconds/60);
-        // Seconds
-        var partInSeconds = seconds%60;
-        // Adds left zeros to seconds
-        partInSeconds = partInSeconds.toString().padStart(2,'0');
-        // Returns formated time
-        return `${minutes}:${partInSeconds}`;
-    }
-    //Time decrement
-    onEvent(){
-        if(this.initialTime>=1){
-            this.initialTime -= 1; // One second
-            //timeText.setText('Water Level: ' + this.formatTime(this.initialTime));
-        }else{
-            if (this.levelComplete == false) {
-                this.gameOver = true;    // Pause the scene
-           }
-        }
-    }
+    
 
 }

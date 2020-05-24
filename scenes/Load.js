@@ -23,7 +23,7 @@ class Load extends Phaser.Scene {
         this.load.image('stone6', 'Stone_6.png');
         this.load.image('shark', 'Shark.png');
         this.load.image('tutorialTrans', 'tutorialTransition.png');
-        this.load.image('level1load', 'level1.png');
+        this.load.image('level1load', 'level1Transition.png');
         this.load.image('water', 'waterLevel.png');
         this.load.image('wall', 'wall.png');
         this.load.image('anchor', 'Anchor-02.png');
@@ -36,6 +36,9 @@ class Load extends Phaser.Scene {
         this.load.image('level1BG', 'level1bg.png');
         this.load.image('level2load', 'level2.png');
         this.load.image('level3load', 'level3.png');
+        this.load.image('waterPickup', 'water.png');
+        this.load.image('level2BG', 'level2bg.png');
+        this.load.image('crate', 'crate.png');
         this.load.spritesheet("kelp", "kelp.png", {
             frameWidth: 160,
             frameHeight: 160,

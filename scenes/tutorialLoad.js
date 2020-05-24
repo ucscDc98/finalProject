@@ -22,7 +22,7 @@ class tutorialLoad extends Phaser.Scene {
         }
         
         this.levelSound.play(this.levelConfig);
-        this.timer= this.time.delayedCall(1000, () => {
+        this.timer= this.time.delayedCall(1500, () => {
            
             this.scene.start("tutorialScene");
 

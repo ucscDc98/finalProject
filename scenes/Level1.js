@@ -8,7 +8,7 @@ class Level1 extends Phaser.Scene {
 
     }
     create() {
-        this.add.image(0, 0, 'level1BG').setScale(12);
+        this.add.image(0, 0, 'level2BG').setScale(20);
         
 
         this.pufferFishShape = 'normal';
@@ -32,12 +32,39 @@ class Level1 extends Phaser.Scene {
         this.keyboard3 = this.input.keyboard.addKey("THREE");
         this.keyboard4 = this.input.keyboard.addKey("FOUR");
 
+        // rocks
+        this.rock1 = this.physics.add.sprite(2500, 1750, 'rock').setSize(120,310).setScale(3);
+        this.rock1.rotation = Math.PI/2*3;
+        this.rock1.body.immovable = true;
+        this.anchor1 = this.physics.add.sprite(2500, 0, 'anchor').setScale(4);
+        this.anchor1.body.setVelocityY(300);
 
-         //have the keyboard UI sprites follow with the camera by setting their scroll factor
-         this.key1 = this.add.sprite(-600, -350, 'key1').setScale(2).setOrigin(0).setScrollFactor(0);
-         this.key2 = this.add.sprite(-280, -350, 'key2').setScale(2).setOrigin(0).setScrollFactor(0);
-         this.key3 = this.add.sprite(30, -350, 'key3').setScale(2).setOrigin(0).setScrollFactor(0);
-         this.key4 = this.add.sprite(350, -350, 'key4').setScale(2).setOrigin(0).setScrollFactor(0);
+
+        this.rock2 = this.physics.add.sprite(3100, 1200, 'rock').setSize(120, 310).setScale(3);
+        this.rock2.rotation = Math.PI/2*3;
+        this.rock2.body.immovable = true;
+        this.anchor2 = this.physics.add.sprite(3100, -550, 'anchor').setScale(4);
+        this.anchor2.body.setVelocityY(300);
+
+        this.rock3 = this.physics.add.sprite(this.rock2.x + 600, this.rock2.y + this.rock2.height/2, 'rock').setSize(310, 120).setScale(3);
+        this.rock3.body.immovable = true;
+
+        this.crate = this.physics.add.sprite(3600, 1800, 'crate').setScale(1.2);
+        this.crate.body.immovable = true;
+        this.crate1 = this.physics.add.sprite(3600, 2050, 'crate').setScale(1.2);
+        this.crate1.body.immovable = true;
+        this.crate2 = this.physics.add.sprite(3600, 1550, 'crate').setScale(1.2);
+        this.crate2.body.immovable = true;
+
+        //have the keyboard UI sprites follow with the camera by setting their scroll factor
+        this.key1 = this.add.sprite(-600, -350, 'key1').setScale(2).setOrigin(0).setScrollFactor(0);
+        this.key2 = this.add.sprite(-280, -350, 'key2').setScale(2).setOrigin(0).setScrollFactor(0);
+        this.key3 = this.add.sprite(30, -350, 'key3').setScale(2).setOrigin(0).setScrollFactor(0);
+        this.key4 = this.add.sprite(350, -350, 'key4').setScale(2).setOrigin(0).setScrollFactor(0);
+
+
+        this.water = this.physics.add.sprite(this.crate.x + this.crate.width + 50, this.crate.y, 'waterPickup').setScale(0.5);
+
         // Starting animation for the player
         this.anims.create({
             key: "pufferFish_anim",
@@ -121,12 +148,33 @@ class Level1 extends Phaser.Scene {
         // for pause menu
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.add.text(-600, -500, 'Press (SPACE) to pause').setScale(3).setScrollFactor(0);
+
+        this.physics.add.collider(this.pufferFish, this.rock1);
+        this.physics.add.collider(this.pufferFish, this.rock2);
+        this.physics.add.collider(this.pufferFish, this.crate);
+        this.physics.add.collider(this.pufferFish, this.crate1);
+        this.physics.add.collider(this.pufferFish, this.crate2);
     
     } 
 
     update() {
-        this.waterLevel.y += 0.25;
+        this.waterLevel.y += .5;
+        if (this.physics.overlap(this.pufferFish, this.water)) {
+            this.water.destroy();
+            this.waterLevel.y -= 50;
+        }
+
         this.physics.world.setBounds(0, this.waterLevel.y, 1920*5, 2150 - this.waterLevel.y);
+
+        if (this.checkCollision(this.pufferFish, this.crate) && this.pufferFishShape === 'fat') {
+            this.crate.destroy();
+        }
+        if (this.checkCollision(this.pufferFish, this.crate1) && this.pufferFishShape === 'fat') {
+            this.crate1.destroy();
+        }
+        if (this.checkCollision(this.pufferFish, this.crate2) && this.pufferFishShape === 'fat') {
+            this.crate1.destroy();
+        }
         ///////////////////////////////////////////////////////////////
         // paused menu
         if(Phaser.Input.Keyboard.JustDown(keySpace)){
@@ -207,6 +255,65 @@ class Level1 extends Phaser.Scene {
 
         if (this.levelComplete == true) {
             this.scene.start('level2Transition');
+        }
+
+        if (this.anchor1.y > 350) {
+            this.anchor1.body.setVelocityY(-300);
+            if (Math.abs(this.pufferFish.x - this.anchor1.x) < 1000) {
+                this.tinkSound.play(this.tinkConfig);
+            }
+        }
+        if (this.anchor1.y <= -100) {
+            this.anchor1.body.setVelocityY(300);
+        }
+        
+        if (this.anchor2.y > -200) {
+            this.anchor2.body.setVelocityY(-300);
+            if (Math.abs(this.pufferFish.x - this.anchor2.x) < 1000) {
+                this.tinkSound.play(this.tinkConfig);
+            }
+        }
+        if (this.anchor2.y <= -700) {
+            this.anchor2.body.setVelocityY(300);
+        }
+        if (this.physics.overlap(this.pufferFish, this.anchor1)){
+            this.gameOver = true;
+        }
+        if (this.physics.overlap(this.pufferFish, this.anchor2)){
+            this.gameOver = true;
+        }
+
+        // plays BGMusic in loop
+        // feel free to change the config
+        this.music = this.sound.add("BGMusic");
+        let musicConfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+        this.music.play(musicConfig);
+
+        if (this.waterLevel.y == 2150) {
+            this.gameOver = true;
+        }
+
+        if (this.gameOver == true) {
+            this.scene.start('level1Scene');
+        }
+    }
+
+    checkCollision(puff, crate) {
+        if (puff.x < crate.x + crate.width && 
+            puff.x + puff.width > crate.x && 
+            puff.y < crate.y + crate.height &&
+            puff.height + puff.y > crate.y) {
+                return true;
+        } else {
+            return false;
         }
     }
 }
