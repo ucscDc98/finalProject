@@ -172,7 +172,7 @@ class Level1 extends Phaser.Scene {
     } 
 
     update() {
-        this.waterLevel.y += .5;
+        this.waterLevel.y += .3;
         if (this.physics.overlap(this.pufferFish, this.water)) {
             this.water.destroy();
             this.waterLevel.y -= 50;
