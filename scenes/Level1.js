@@ -32,6 +32,8 @@ class Level1 extends Phaser.Scene {
         this.keyboard3 = this.input.keyboard.addKey("THREE");
         this.keyboard4 = this.input.keyboard.addKey("FOUR");
 
+        this.eel = this.physics.add.sprite(4800, 1600, 'eel').setSize(150,400);
+        this.eel.body.setVelocityY(500);
         // rocks
         this.rock1 = this.physics.add.sprite(2500, 1750, 'rock').setSize(120,310).setScale(3);
         this.rock1.rotation = Math.PI/2*3;
@@ -49,12 +51,22 @@ class Level1 extends Phaser.Scene {
         this.rock3 = this.physics.add.sprite(this.rock2.x + 600, this.rock2.y + this.rock2.height/2, 'rock').setSize(310, 120).setScale(3);
         this.rock3.body.immovable = true;
 
+        this.rock4 = this.physics.add.sprite(this.rock3.x + 1100, this.rock3.y, 'rock').setSize(310, 120).setScale(3);
+        this.rock4.body.immovable = true;
+
+        this.rock5 = this.physics.add.sprite(this.rock4.x, 2200, 'rock').setSize(120, 310).setScale(3);
+        this.rock5.rotation = Math.PI/2*3;
+        this.rock5.body.immovable = true;
+
         this.crate = this.physics.add.sprite(3600, 1800, 'crate').setScale(1.2);
         this.crate.body.immovable = true;
         this.crate1 = this.physics.add.sprite(3600, 2050, 'crate').setScale(1.2);
         this.crate1.body.immovable = true;
         this.crate2 = this.physics.add.sprite(3600, 1550, 'crate').setScale(1.2);
         this.crate2.body.immovable = true;
+
+
+ 
 
         //have the keyboard UI sprites follow with the camera by setting their scroll factor
         this.key1 = this.add.sprite(-600, -350, 'key1').setScale(2).setOrigin(0).setScrollFactor(0);
@@ -64,7 +76,7 @@ class Level1 extends Phaser.Scene {
 
 
         this.water = this.physics.add.sprite(this.crate.x + this.crate.width + 50, this.crate.y, 'waterPickup').setScale(0.5);
-
+        this.water1 = this.physics.add.sprite(this.anchor2.x + 400, 1000, 'waterPickup').setScale(0.5);
         // Starting animation for the player
         this.anims.create({
             key: "pufferFish_anim",
@@ -165,6 +177,9 @@ class Level1 extends Phaser.Scene {
 
         this.physics.add.collider(this.pufferFish, this.rock1);
         this.physics.add.collider(this.pufferFish, this.rock2);
+        this.physics.add.collider(this.pufferFish, this.rock3);
+        this.physics.add.collider(this.pufferFish, this.rock4);
+        this.physics.add.collider(this.pufferFish, this.rock5);
         this.physics.add.collider(this.pufferFish, this.crate);
         this.physics.add.collider(this.pufferFish, this.crate1);
         this.physics.add.collider(this.pufferFish, this.crate2);
@@ -177,17 +192,25 @@ class Level1 extends Phaser.Scene {
             this.water.destroy();
             this.waterLevel.y -= 50;
         }
-
+        if (this.physics.overlap(this.pufferFish, this.water1)) {
+            this.water1.destroy();
+            this.waterLevel.y -= 50;
+        }
+        
+        if (this.physics.overlap(this.pufferFish, this.eel)) {
+            this.gameOver = true;
+        }
         this.physics.world.setBounds(0, this.waterLevel.y, 1920*5, 2150 - this.waterLevel.y);
 
-        if (this.checkCollision(this.pufferFish, this.crate) && this.pufferFishShape === 'fat') {
+
+        if (this.physics.collide(this.pufferFish, this.crate) && this.pufferFishShape === 'fat') {
             this.crate.destroy();
         }
-        if (this.checkCollision(this.pufferFish, this.crate1) && this.pufferFishShape === 'fat') {
+        if (this.physics.collide(this.pufferFish, this.crate1) && this.pufferFishShape === 'fat') {
             this.crate1.destroy();
         }
-        if (this.checkCollision(this.pufferFish, this.crate2) && this.pufferFishShape === 'fat') {
-            this.crate1.destroy();
+        if (this.physics.collide(this.pufferFish, this.crate2) && this.pufferFishShape === 'fat') {
+            this.crate2.destroy();
         }
         ///////////////////////////////////////////////////////////////
         // paused menu
@@ -290,6 +313,23 @@ class Level1 extends Phaser.Scene {
         if (this.anchor2.y <= -700) {
             this.anchor2.body.setVelocityY(300);
         }
+
+        if (this.eel.y <= 1750) {
+            this.eel.body.setVelocityY(0);
+            this.time.delayedCall(1000, () => {
+           
+                this.eel.body.setVelocityY(500);
+    
+            }, null, this);
+        }
+        if (this.eel.y >= 2200) {
+            this.eel.body.setVelocityY(0);
+            this.time.delayedCall(1000, () => {
+           
+                this.eel.body.setVelocityY(-500);
+    
+            }, null, this);
+        }
         if (this.physics.overlap(this.pufferFish, this.anchor1)){
             //this.gameOver = true;
             this.music.stop();
@@ -300,11 +340,11 @@ class Level1 extends Phaser.Scene {
             this.music.stop();
             this.scene.restart();
         }
-        /*
+        
         if (this.waterLevel.y == 2150) {
             this.gameOver = true;
         }
-        */
+        
 
         if (this.gameOver == true) {
             this.scene.start('level1Scene');

@@ -259,7 +259,7 @@ class Tutorial extends Phaser.Scene {
             this.anchor4.body.setVelocityY(300);
         }
 
-        this.waterLevel.y += 0.5;
+        this.waterLevel.y += 0.3;
         this.physics.world.setBounds(0, this.waterLevel.y, 1920*5, 2150 - this.waterLevel.y);
         /////////////////////////////////////////////////////////////////////////////////////////
         // keyboard inputs changing size and keypad indicators
