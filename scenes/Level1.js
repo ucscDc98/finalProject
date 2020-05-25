@@ -8,7 +8,7 @@ class Level1 extends Phaser.Scene {
 
     }
     create() {
-        this.add.image(0, 0, 'level2BG').setScale(20);
+        this.add.image(0, 0, 'level2BG').setScale(35);
         
 
         this.pufferFishShape = 'normal';
@@ -112,6 +112,20 @@ class Level1 extends Phaser.Scene {
         })
 
         this.waterLevel = this.physics.add.sprite(0, 0, 'water').setAlpha(0.3).setOrigin(0).setScale(12);
+
+        // plays BGMusic in loop
+        // feel free to change the config
+        this.music = this.sound.add("BGMusic");
+        let musicConfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+        this.music.play(musicConfig);
 
         this.poofSound = this.sound.add("poof");
         this.poofConfig = {
@@ -277,29 +291,20 @@ class Level1 extends Phaser.Scene {
             this.anchor2.body.setVelocityY(300);
         }
         if (this.physics.overlap(this.pufferFish, this.anchor1)){
-            this.gameOver = true;
+            //this.gameOver = true;
+            this.music.stop();
+            this.scene.restart();
         }
         if (this.physics.overlap(this.pufferFish, this.anchor2)){
-            this.gameOver = true;
+            //this.gameOver = true;
+            this.music.stop();
+            this.scene.restart();
         }
-
-        // plays BGMusic in loop
-        // feel free to change the config
-        this.music = this.sound.add("BGMusic");
-        let musicConfig = {
-            mute: false,
-            volume: 1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0
-        }
-        this.music.play(musicConfig);
-
+        /*
         if (this.waterLevel.y == 2150) {
             this.gameOver = true;
         }
+        */
 
         if (this.gameOver == true) {
             this.scene.start('level1Scene');
@@ -317,3 +322,4 @@ class Level1 extends Phaser.Scene {
         }
     }
 }
+
