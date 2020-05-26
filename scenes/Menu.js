@@ -16,7 +16,8 @@ class Menu extends Phaser.Scene {
         let playbutton= this.physics.add.sprite(centerX, 380, "play").setInteractive();
         let selectbutton= this.physics.add.sprite(657, 466, "select").setInteractive().setScale(0.8);//scale down to play button size
         //Add main Title text above selection buttons
-        this.add.text(100, 165, "Pufferfish Misadventures", {fontFamily: "Cursive", fontSize: "92px", color: "#FF7F50", stroke: "#1565c0", strokeThickness:20});
+        //this.add.text(100, 165, "Pufferfish Misadventures", {fontFamily: "Cursive", fontSize: "92px", color: "#FF7F50", stroke: "#1565c0", strokeThickness:20});
+        this.add.image(centerX, 250, "Title").setScale(2);
         //fixed scope issue with 'this'
         const self= this;
         //resize the collision box of playbutton
