@@ -27,6 +27,7 @@ class Load extends Phaser.Scene {
         this.load.image('water', 'waterLevel.png');
         this.load.image('wall', 'wall.png');
         this.load.image('anchor', 'Anchor-02.png');
+        this.load.image('anchor1', 'anchor1.png');
         this.load.image('cageG', 'CagedGirl.png');
         this.load.image('chain', 'Chain.png');
         this.load.audio('poof', 'poof.wav');
@@ -34,12 +35,14 @@ class Load extends Phaser.Scene {
         this.load.audio('sharkScream', 'sharkScream.ogg');
         this.load.audio('levelStart', 'levelStart.wav');
         this.load.image('level1BG', 'level1bg.png');
+        this.load.image('level1Text', 'Lv1Textbub.png');
         this.load.image('level2load', 'level2.png');
         this.load.image('level3load', 'level3.png');
         this.load.image('waterPickup', 'water.png');
         this.load.image('level2BG', 'level2bg.png');
         this.load.image('crate', 'crate.png');
         this.load.image('eel', 'eel.png');
+        this.load.image('seahorse', 'seahorse.png');
         this.load.spritesheet("kelp", "kelp.png", {
             frameWidth: 160,
             frameHeight: 160,
